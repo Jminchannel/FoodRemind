@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>食饭提醒APP - 原型</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFC107;
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-color: #212529;
+            --subtle-text: #6C757D;
+            --border-color: #E9ECEF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #E0E0E0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .phone-wrapper {
+            width: 375px;
+            height: 812px;
+            background-color: var(--bg-color);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-header {
+            padding: 20px;
+            padding-top: 50px; /* Notch space */
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        .app-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 80px;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--subtle-text);
+            font-size: 0.75rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        
+        .nav-item .icon {
+            font-size: 1.5rem;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        
+        /* Home Page */
+        .home-greeting {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .home-greeting h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .home-greeting p {
+            margin: 5px 0 0;
+            color: var(--subtle-text);
+        }
+
+        .meal-countdown {
+            text-align: center;
+        }
+        .meal-countdown h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--primary-color);
+        }
+        .meal-countdown p {
+            margin: 5px 0 0;
+            color: var(--subtle-text);
+            font-size: 1rem;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, var(--primary-color), #66BB6A);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+            transition: transform 0.2s;
+            margin-top: 25px;
+        }
+        .cta-button:hover {
+            transform: scale(1.02);
+        }
+
+        .secondary-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s, color 0.2s;
+            margin-top: 15px;
+        }
+        .secondary-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .record-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+        .record-button:hover {
+             transform: scale(1.05);
+        }
+
+        .seasonal-tip {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .seasonal-tip .icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+        
+        /* Roulette Page -> Slot Machine Page */
+        .slot-machine-wrapper {
+            height: 220px;
+            width: 100%;
+            background: var(--bg-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slot-machine-wrapper::before,
+        .slot-machine-wrapper::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 2;
+        }
+
+        .slot-machine-wrapper::before {
+            top: 0;
+            background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(248,249,250,0) 100%);
+        }
+
+        .slot-machine-wrapper::after {
+            bottom: 0;
+            background: linear-gradient(to top, var(--bg-color) 0%, rgba(248,249,250,0) 100%);
+        }
+
+        .slot-reel {
+            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .slot-item {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        
+        .slot-pointer {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            height: 100px;
+            border-top: 3px solid var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            z-index: 1;
+        }
+        
+        .result-display {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .result-display p {
+            color: var(--subtle-text);
+        }
+        .result-display h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        /* Seasonal Page */
+        .seasonal-info {
+            text-align: center;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        .seasonal-info h2 { margin: 0; font-size: 1.5rem; }
+        .seasonal-info p { margin: 5px 0 0; opacity: 0.9; }
+        
+        .food-list-container {
+            margin-top: 20px;
+        }
+        .food-list-container h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+            padding-left: 10px;
+        }
+        .food-list-container.recommended h3 { border-color: var(--primary-color); color: var(--primary-color); }
+        .food-list-container.avoid h3 { border-color: #E53935; color: #E53935; }
+        
+        .food-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .food-item:hover {
+            transform: translateY(-3px);
+        }
+        .food-item .icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+        }
+        .food-item.recommended .icon { color: var(--primary-color); background-color: #E8F5E9; }
+        .food-item.avoid .icon { color: #E53935; background-color: #FFEBEE; }
+        
+        .food-item .info h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .food-item .info p {
+            margin: 3px 0 0;
+            font-size: 0.85rem;
+            color: var(--subtle-text);
+        }
+
+        /* Settings Page */
+        .setting-group {
+            margin-bottom: 25px;
+        }
+        .setting-group h3 {
+            font-size: 0.9rem;
+            color: var(--subtle-text);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .setting-item .label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .setting-item .label .icon {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        .setting-item .control .time {
+            font-weight: 600;
+            color: var(--subtle-text);
+            margin-right: 10px;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+        
+        .preference-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tag {
+            background-color: var(--bg-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        .tag.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* History Page */
+        .history-filter {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            padding: 0 0 15px 0; 
+        }
+        .history-filter input[type="month"], .history-filter select {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--card-bg);
+            min-width: 120px; /* Prevent shrinking too much */
+        }
+        .history-filter button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .history-filter .reset-btn {
+            background-color: var(--subtle-text);
+        }
+        .history-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .history-item-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+        .history-item-details {
+            flex-grow: 1;
+        }
+        .history-item-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+        }
+        .history-item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--subtle-text);
+            font-size: 0.85rem;
+        }
+        .history-item-meta .taste-tag {
+            background: var(--bg-color);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 320px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideInUp 0.4s;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        #food-options-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        #food-options-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        #food-options-list .delete-btn {
+            cursor: pointer;
+            color: #E53935;
+            font-size: 1.1rem;
+        }
+
+        .add-food-form {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .add-food-form input {
+            flex-grow: 1;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+        }
+        .add-food-form button {
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            width: 45px;
+            cursor: pointer;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .modal-actions button {
+            flex: 1; /* This ensures both buttons take up equal width */
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .modal-actions .tertiary-button {
+            background-color: var(--bg-color);
+            color: var(--subtle-text);
+        }
+        .modal-actions .modal-button-confirm {
+            background: linear-gradient(45deg, var(--primary-color), #66BB6A);
+            color: white;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .header-action-icon {
+            position: absolute;
+            right: 25px;
+            top: 58px; 
+            font-size: 1.4rem;
+            color: var(--subtle-text);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .header-action-icon:hover {
+            color: var(--text-color);
+        }
+
+        /* Form styling in modal */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--subtle-text);
+            font-size: 0.9rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            box-sizing: border-box; /* Important for 100% width */
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="phone-wrapper">
+        <header class="app-header">
+            <span id="app-header-title">主页</span>
+            <i class="fas fa-cog header-action-icon" id="header-settings-btn"></i>
+        </header>
+        
+        <main class="app-content">
+            <!-- PAGE 1: HOME -->
+            <div id="page-home" class="page active">
+                <div class="home-greeting">
+                    <h2>中午好, 仓和</h2>
+                    <p>是时候考虑午餐吃什么了</p>
+                </div>
+                
+                <div class="card meal-countdown">
+                    <p>距离午餐推荐时间还有</p>
+                    <h1>00:28:15</h1>
+                </div>
+
+                <button class="cta-button" onclick="navigateTo('page-roulette', '天选食神', document.querySelector('.nav-item[onclick*=\'page-roulette\']'))">
+                    <i class="fas fa-dice"></i> 天选食神
+                </button>
+                
+                <button class="secondary-button" onclick="openRecordModal()">
+                    <i class="fas fa-edit"></i> 手动记录一餐
+                </button>
+
+                <div class="card seasonal-tip" style="margin-top: 20px;">
+                    <i class="fas fa-leaf icon"></i>
+                    <div>
+                        <h3>今日时令小贴士 (白露)</h3>
+                        <p>天气转凉，宜食梨、银耳等润肺之物。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: SLOT MACHINE -->
+            <div id="page-roulette" class="page">
+                <div class="card">
+                    <div class="slot-machine-wrapper">
+                         <div class="slot-pointer"></div>
+                        <div class="slot-reel" id="slot-reel">
+                            <!-- JS will generate items here -->
+                        </div>
+                    </div>
+                    
+                    <div class="result-display" style="display: none;">
+                        <p>今天就吃这个吧！</p>
+                        <h2 id="roulette-result"></h2>
+                        <button class="record-button" id="record-meal-btn"><i class="fas fa-pencil-alt"></i> 就吃它了！记录一下</button>
+                    </div>
+                </div>
+                 <button class="cta-button" id="spin-btn">开始选择</button>
+                 <button class="secondary-button" id="customize-btn">管理我的菜单</button>
+            </div>
+
+            <!-- PAGE 3: HISTORY -->
+            <div id="page-history" class="page">
+                 <div class="history-filter">
+                    <input type="month" id="history-month-input">
+                    <select id="history-taste-select">
+                        <option value="all">所有口味</option>
+                        <option value="清淡">清淡</option>
+                        <option value="适中">适中</option>
+                        <option value="辛辣">辛辣</option>
+                        <option value="油腻">油腻</option>
+                        <option value="甜">甜</option>
+                        <option value="咸">咸</option>
+                    </select>
+                    <button id="filter-history-btn">查询</button>
+                    <button id="reset-history-btn" class="reset-btn">重置</button>
+                 </div>
+                 <div id="history-list">
+                    <!-- JS will populate this -->
+                 </div>
+                 <div id="history-empty-state" style="display: none; text-align: center; margin-top: 50px; color: var(--subtle-text);">
+                    <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                    <p>还没有任何饮食记录哦</p>
+                </div>
+            </div>
+
+
+            <!-- PAGE 4: SEASONAL -->
+            <div id="page-seasonal" class="page">
+                <div class="seasonal-info">
+                    <h2>当前节气: 白露</h2>
+                    <p>秋季转凉，燥气当令</p>
+                </div>
+                
+                <div class="food-list-container recommended">
+                    <h3><i class="fas fa-check-circle"></i> 推荐食用</h3>
+                    <div class="food-item recommended">
+                        <div class="icon"><i class="fas fa-apple-alt"></i></div>
+                        <div class="info">
+                            <h4>梨</h4>
+                            <p>润肺清燥，生津止咳</p>
+                        </div>
+                    </div>
+                    <div class="food-item recommended">
+                        <div class="icon"><i class="fa-solid fa-seedling"></i></div>
+                        <div class="info">
+                            <h4>银耳</h4>
+                            <p>滋阴润肺，益气和血</p>
+                        </div>
+                    </div>
+                    <div class="food-item recommended">
+                        <div class="icon"><i class="fa-solid fa-bowl-rice"></i></div>
+                        <div class="info">
+                            <h4>糯米</h4>
+                            <p>温补脾胃，补中益气</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-list-container avoid" style="margin-top: 30px;">
+                    <h3><i class="fas fa-times-circle"></i> 避免食用</h3>
+                     <div class="food-item avoid">
+                        <div class="icon"><i class="fas fa-shrimp"></i></div>
+                        <div class="info">
+                            <h4>生冷海鲜</h4>
+                            <p>性寒，易伤脾胃阳气</p>
+                        </div>
+                    </div>
+                    <div class="food-item avoid">
+                        <div class="icon"><i class="fa-solid fa-pepper-hot"></i></div>
+                        <div class="info">
+                            <h4>过食辛辣</h4>
+                            <p>易助燥伤阴，加重秋燥</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: SETTINGS -->
+            <div id="page-settings" class="page">
+                <div class="setting-group">
+                    <h3>用餐提醒</h3>
+                    <div id="reminder-list-container">
+                        <!-- JS will generate reminder items here -->
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>关于</h3>
+                    <div class="setting-item">
+                        <div class="label"><i class="fas fa-info-circle icon"></i> <span>关于我们</span></div>
+                    </div>
+                     <div class="setting-item">
+                        <div class="label"><i class="fas fa-star icon"></i> <span>给个好评</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <nav class="nav-bar">
+            <div class="nav-item active" onclick="navigateTo('page-home', '主页', this)">
+                <i class="fas fa-home icon"></i>
+                <span>主页</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('page-roulette', '天选食神', this)">
+                <i class="fas fa-dice icon"></i>
+                <span>吃什么</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('page-history', '饮食记录', this)">
+                <i class="fas fa-history icon"></i>
+                <span>记录</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('page-seasonal', '时令食单', this)">
+                <i class="fas fa-leaf icon"></i>
+                <span>时令</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('page-settings', '设置', this)">
+                <i class="fas fa-cog icon"></i>
+                <span>设置</span>
+            </div>
+        </nav>
+    </div>
+
+    <div id="customize-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>自定义菜单</h3>
+            <ul id="food-options-list">
+                <!-- JS will populate this -->
+            </ul>
+            <div class="add-food-form">
+                <input type="text" id="new-food-input" placeholder="添加新选项...">
+                <button id="add-food-btn"><i class="fas fa-plus"></i></button>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-customize-btn" class="tertiary-button">取消</button>
+                <button id="save-customize-btn" class="modal-button-confirm">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="record-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>记录一餐</h3>
+            <div class="form-group">
+                <label for="meal-name-input">吃了什么</label>
+                <input type="text" id="meal-name-input" placeholder="例如: 隆江猪脚饭">
+            </div>
+            <div class="form-group">
+                <label for="meal-cost-input">花费多少 (元)</label>
+                <input type="number" id="meal-cost-input" placeholder="例如: 25">
+            </div>
+            <div class="form-group">
+                <label for="meal-taste-select">口味如何</label>
+                <select id="meal-taste-select">
+                    <option value="清淡">清淡</option>
+                    <option value="适中" selected>适中</option>
+                    <option value="辛辣">辛辣</option>
+                    <option value="油腻">油腻</option>
+                    <option value="甜">甜</option>
+                    <option value="咸">咸</option>
+                </select>
+            </div>
+             <div class="modal-actions">
+                <button id="cancel-record-btn" class="tertiary-button">取消</button>
+                <button id="save-record-btn" class="modal-button-confirm">确认记录</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="reminder-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 id="reminder-modal-title">设置提醒</h3>
+            <div class="form-group">
+                <label for="meal-time-input">用餐时间</label>
+                <input type="time" id="meal-time-input">
+            </div>
+            <div class="form-group">
+                <label for="lead-time-select">提前多久提醒</label>
+                <select id="lead-time-select">
+                    <option value="0">准时提醒</option>
+                    <option value="5">提前5分钟</option>
+                    <option value="15">提前15分钟</option>
+                    <option value="30">提前30分钟</option>
+                    <option value="60">提前1小时</option>
+                </select>
+            </div>
+             <div class="modal-actions">
+                <button id="cancel-reminder-btn" class="tertiary-button">取消</button>
+                <button id="save-reminder-btn" class="modal-button-confirm">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- App State ---
+        let foodOptions = [
+            "隆江猪脚饭", "潮汕炒粿", "麦当劳", 
+            "华莱士", "螺蛳粉", "肯德基",
+            "沙县小吃", "兰州拉面"
+        ];
+        let mealHistory = [
+             { name: '黄焖鸡米饭', cost: 22, taste: '适中', date: new Date(new Date().setDate(new Date().getDate() - 1)) },
+             { name: '肉夹馍', cost: 8, taste: '咸', date: new Date(new Date().setDate(new Date().getDate() - 3)) },
+             { name: '兰州拉面', cost: 18, taste: '清淡', date: new Date(new Date().setMonth(new Date().getMonth() - 1)) }
+        ];
+        let reminderSettings = [
+            { id: 'breakfast', name: '早餐', icon: 'fas fa-sun', time: '08:00', leadTime: 15, enabled: true },
+            { id: 'lunch', name: '午餐', icon: 'fas fa-cloud-sun', time: '12:30', leadTime: 15, enabled: true },
+            { id: 'dinner', name: '晚餐', icon: 'fas fa-moon', time: '19:00', leadTime: 30, enabled: false }
+        ];
+        let tempFoodOptions = [...foodOptions];
+        let currentEditingMealId = null;
+
+        // --- DOM Elements ---
+        const slotReel = document.getElementById('slot-reel');
+        const spinBtn = document.getElementById('spin-btn');
+        const resultDisplay = document.querySelector('.result-display');
+        const resultText = document.getElementById('roulette-result');
+        const recordMealBtn = document.getElementById('record-meal-btn');
+        
+        // History Page elements
+        const historyList = document.getElementById('history-list');
+        const historyEmptyState = document.getElementById('history-empty-state');
+        const historyMonthInput = document.getElementById('history-month-input');
+        const historyTasteSelect = document.getElementById('history-taste-select');
+        const filterHistoryBtn = document.getElementById('filter-history-btn');
+        const resetHistoryBtn = document.getElementById('reset-history-btn');
+
+        // Settings Page elements
+        const reminderListContainer = document.getElementById('reminder-list-container');
+
+        // Modal elements
+        const customizeModal = document.getElementById('customize-modal');
+        const customizeBtn = document.getElementById('customize-btn');
+        const cancelCustomizeBtn = document.getElementById('cancel-customize-btn');
+        const saveCustomizeBtn = document.getElementById('save-customize-btn');
+        const addFoodBtn = document.getElementById('add-food-btn');
+        const newFoodInput = document.getElementById('new-food-input');
+        const foodOptionsList = document.getElementById('food-options-list');
+
+        // Record Modal elements
+        const recordModal = document.getElementById('record-modal');
+        const mealNameInput = document.getElementById('meal-name-input');
+        const mealCostInput = document.getElementById('meal-cost-input');
+        const mealTasteSelect = document.getElementById('meal-taste-select');
+        const cancelRecordBtn = document.getElementById('cancel-record-btn');
+        const saveRecordBtn = document.getElementById('save-record-btn');
+
+        // Reminder Modal elements
+        const reminderModal = document.getElementById('reminder-modal');
+        const reminderModalTitle = document.getElementById('reminder-modal-title');
+        const mealTimeInput = document.getElementById('meal-time-input');
+        const leadTimeSelect = document.getElementById('lead-time-select');
+        const cancelReminderBtn = document.getElementById('cancel-reminder-btn');
+        const saveReminderBtn = document.getElementById('save-reminder-btn');
+
+        // Header elements
+        const headerSettingsBtn = document.getElementById('header-settings-btn');
+
+
+        // --- Functions ---
+        function navigateTo(pageId, title, navElement) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show the target page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update header title
+            document.getElementById('app-header-title').textContent = title;
+            
+            // Show/hide settings icon in header
+            if (pageId === 'page-settings') {
+                headerSettingsBtn.style.display = 'none';
+            } else {
+                headerSettingsBtn.style.display = 'block';
+            }
+
+            // Update nav item active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            if (navElement) {
+                navElement.classList.add('active');
+            }
+        }
+        
+        function renderSlotMachine() {
+            slotReel.innerHTML = '';
+             // To create a seamless loop, we need many repetitions. 10 should be plenty.
+            let repeatedOptions = [];
+            for (let i = 0; i < 10; i++) {
+                repeatedOptions.push(...foodOptions);
+            }
+            
+            repeatedOptions.forEach(option => {
+                const item = document.createElement('div');
+                item.className = 'slot-item';
+                item.textContent = option;
+                slotReel.appendChild(item);
+            });
+        }
+
+        function renderReminders() {
+            reminderListContainer.innerHTML = '';
+            reminderSettings.forEach(setting => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'setting-item';
+                itemDiv.dataset.mealId = setting.id;
+                
+                itemDiv.innerHTML = `
+                    <div class="label"><i class="${setting.icon} icon"></i> <span>${setting.name}</span></div>
+                    <div class="control">
+                        <span class="time">${setting.time}</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="reminder-toggle" data-meal-id="${setting.id}" ${setting.enabled ? 'checked' : ''}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                `;
+                reminderListContainer.appendChild(itemDiv);
+            });
+        }
+
+        function formatMealTime(date) {
+            const now = new Date();
+            const diffSeconds = Math.round((now - date) / 1000);
+            
+            const timeStr = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+            if (date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth() && date.getDate() === now.getDate()) {
+                return `今天 ${timeStr}`;
+            }
+            if (date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth() && date.getDate() === now.getDate() - 1) {
+                return `昨天 ${timeStr}`;
+            }
+
+            return `${date.getMonth() + 1}月${date.getDate()}日 ${timeStr}`;
+        }
+
+        function renderHistory(data = mealHistory) {
+            if (data.length === 0) {
+                historyEmptyState.style.display = 'block';
+                historyList.style.display = 'none';
+            } else {
+                historyEmptyState.style.display = 'none';
+                historyList.style.display = 'block';
+                historyList.innerHTML = '';
+                // Show latest first
+                [...data].sort((a, b) => b.date - a.date).forEach(item => {
+                    const historyDiv = document.createElement('div');
+                    historyDiv.className = 'history-item';
+                    historyDiv.innerHTML = `
+                        <div class="history-item-icon"><i class="fas fa-utensils"></i></div>
+                        <div class="history-item-details">
+                            <h4>${item.name}</h4>
+                            <div class="history-item-meta">
+                                <span><i class="far fa-clock"></i> ${formatMealTime(item.date)}</span>
+                                <span><i class="fas fa-money-bill-wave"></i> ¥${item.cost}</span>
+                                <span class="taste-tag">${item.taste}</span>
+                            </div>
+                        </div>
+                    `;
+                    historyList.appendChild(historyDiv);
+                });
+            }
+        }
+
+        function spinReel() {
+            if (foodOptions.length < 2) {
+                alert('请至少在“管理我的菜单”中设置2个选项');
+                return;
+            }
+
+            spinBtn.disabled = true;
+            customizeBtn.disabled = true;
+            resultDisplay.style.display = 'none';
+
+            const numOptions = foodOptions.length;
+            const itemHeight = 100; // Must match .slot-item height in CSS
+            const wrapperHeight = 220; // Must match .slot-machine-wrapper height in CSS
+            const verticalOffset = (wrapperHeight - itemHeight) / 2;
+
+            // 1. Pick a random target in a distant repetition to ensure a long spin
+            const targetRepetition = 5; // Spin to the 5th block of options
+            const randomOptionIndex = Math.floor(Math.random() * numOptions);
+            const targetIndex = (targetRepetition * numOptions) + randomOptionIndex;
+
+            // 2. Calculate the final Y position to center the target item
+            const finalY = (targetIndex * itemHeight) - verticalOffset;
+            
+            // 3. Set the transition and start the animation
+            slotReel.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            slotReel.style.transform = `translateY(-${finalY}px)`;
+
+            // 4. After the animation finishes, show the result
+            setTimeout(() => {
+                resultText.textContent = foodOptions[randomOptionIndex];
+                resultDisplay.style.display = 'block';
+                spinBtn.disabled = false;
+                customizeBtn.disabled = false;
+
+                // 5. Silently reset the reel to an earlier, equivalent position
+                //    to prevent the translateY value from growing infinitely.
+                setTimeout(() => {
+                    const resetRepetition = 2; // Reset to the 2nd block
+                    const equivalentIndex = (resetRepetition * numOptions) + randomOptionIndex;
+                    const resetY = (equivalentIndex * itemHeight) - verticalOffset;
+                    
+                    slotReel.style.transition = 'none';
+                    slotReel.style.transform = `translateY(-${resetY}px)`;
+                }, 200); // Give it a moment to be still before resetting
+
+            }, 5000); // Must match CSS transition duration
+        }
+        
+        function openCustomizeModal() {
+            tempFoodOptions = [...foodOptions];
+            renderFoodOptionsList();
+            customizeModal.style.display = 'flex';
+        }
+
+        function closeCustomizeModal() {
+            customizeModal.style.display = 'none';
+        }
+
+        function openRecordModal(mealName = '') {
+            mealNameInput.value = mealName;
+            mealCostInput.value = '';
+            mealTasteSelect.value = '适中';
+            recordModal.style.display = 'flex';
+        }
+
+        function closeRecordModal() {
+             recordModal.style.display = 'none';
+        }
+
+        function openReminderModal(mealId) {
+            currentEditingMealId = mealId;
+            const setting = reminderSettings.find(s => s.id === mealId);
+            if (!setting) return;
+
+            reminderModalTitle.textContent = `设置${setting.name}提醒`;
+            mealTimeInput.value = setting.time;
+            leadTimeSelect.value = setting.leadTime;
+            
+            reminderModal.style.display = 'flex';
+        }
+
+        function closeReminderModal() {
+            reminderModal.style.display = 'none';
+        }
+
+        function saveReminderSettings() {
+            if (!currentEditingMealId) return;
+            
+            const setting = reminderSettings.find(s => s.id === currentEditingMealId);
+            if(setting) {
+                setting.time = mealTimeInput.value;
+                setting.leadTime = parseInt(leadTimeSelect.value, 10);
+            }
+            
+            renderReminders();
+            closeReminderModal();
+        }
+
+        function saveMealRecord() {
+            const name = mealNameInput.value.trim();
+            const cost = mealCostInput.value;
+            const taste = mealTasteSelect.value;
+
+            if (!name || !cost) {
+                alert('请填写菜品名称和花费');
+                return;
+            }
+
+            const now = new Date();
+            const time = `${now.getMonth() + 1}月${now.getDate()}日 ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+            
+            mealHistory.push({ name, cost, taste, date: now });
+            renderHistory();
+            closeRecordModal();
+        }
+
+        function renderFoodOptionsList() {
+            foodOptionsList.innerHTML = '';
+            tempFoodOptions.forEach((option, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${option}</span>
+                    <i class="fas fa-trash-alt delete-btn" data-index="${index}"></i>
+                `;
+                foodOptionsList.appendChild(li);
+            });
+        }
+
+        function addFoodOption() {
+            const newOption = newFoodInput.value.trim();
+            if (newOption) {
+                tempFoodOptions.push(newOption);
+                newFoodInput.value = '';
+                renderFoodOptionsList();
+            }
+        }
+
+        function deleteFoodOption(index) {
+            tempFoodOptions.splice(index, 1);
+            renderFoodOptionsList();
+        }
+
+
+        // --- Event Listeners ---
+        spinBtn.addEventListener('click', spinReel);
+        recordMealBtn.addEventListener('click', () => {
+            const mealName = resultText.textContent;
+            openRecordModal(mealName);
+        });
+
+        customizeBtn.addEventListener('click', openCustomizeModal);
+        cancelCustomizeBtn.addEventListener('click', closeCustomizeModal);
+
+        saveCustomizeBtn.addEventListener('click', () => {
+            if (tempFoodOptions.length < 2) {
+                alert('请至少保留2个选项');
+                return;
+            }
+            foodOptions = [...tempFoodOptions];
+            renderSlotMachine();
+            closeCustomizeModal();
+        });
+
+        // Record Modal listeners
+        cancelRecordBtn.addEventListener('click', closeRecordModal);
+        saveRecordBtn.addEventListener('click', saveMealRecord);
+
+        // Reminder Modal listeners
+        cancelReminderBtn.addEventListener('click', closeReminderModal);
+        saveReminderBtn.addEventListener('click', saveReminderSettings);
+
+        headerSettingsBtn.addEventListener('click', () => {
+             navigateTo('page-settings', '设置', document.querySelector('.nav-item[onclick*="page-settings"]'));
+        });
+
+        reminderListContainer.addEventListener('click', (e) => {
+            // Do not open modal if the click was on the toggle switch itself
+            if (e.target.closest('.toggle-switch')) {
+                return;
+            }
+            const settingItem = e.target.closest('.setting-item');
+            if (settingItem) {
+                const mealId = settingItem.dataset.mealId;
+                openReminderModal(mealId);
+            }
+        });
+
+        reminderListContainer.addEventListener('change', (e) => {
+            if (e.target.classList.contains('reminder-toggle')) {
+                const mealId = e.target.dataset.mealId;
+                const isEnabled = e.target.checked;
+                const mealSetting = reminderSettings.find(s => s.id === mealId);
+                if (mealSetting) {
+                    mealSetting.enabled = isEnabled;
+                }
+            }
+        });
+
+        // History Filter listeners
+        filterHistoryBtn.addEventListener('click', () => {
+            const selectedMonth = historyMonthInput.value; // Format: "YYYY-MM" or ""
+            const selectedTaste = historyTasteSelect.value;
+            
+            let dataToFilter = [...mealHistory];
+
+            // Filter by month if selected
+            if (selectedMonth) {
+                const [year, month] = selectedMonth.split('-').map(Number);
+                dataToFilter = dataToFilter.filter(item => {
+                    return item.date.getFullYear() === year && (item.date.getMonth() + 1) === month;
+                });
+            }
+
+            // Filter by taste if selected
+            if (selectedTaste !== 'all') {
+                dataToFilter = dataToFilter.filter(item => item.taste === selectedTaste);
+            }
+            
+            renderHistory(dataToFilter);
+        });
+
+        resetHistoryBtn.addEventListener('click', () => {
+            historyMonthInput.value = '';
+            historyTasteSelect.value = 'all';
+            renderHistory(); // Render with default full list
+        });
+
+        addFoodBtn.addEventListener('click', addFoodOption);
+        newFoodInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addFoodOption();
+            }
+        });
+
+        foodOptionsList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                const index = e.target.getAttribute('data-index');
+                deleteFoodOption(index);
+            }
+        });
+
+        // Initial setup on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSlotMachine();
+            renderHistory();
+            renderReminders();
+            // Default month selector to current month, but don't auto-filter
+            // const today = new Date();
+            // historyMonthInput.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+        });
+
+
+        // JS for preference tags in settings
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                tag.classList.toggle('active');
+            });
+        });
+
+    </script>
+</body>
+</html> 

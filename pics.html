@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>食饭提醒APP - 设计稿平铺（详细版）</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFC107;
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-color: #212529;
+            --subtle-text: #6C757D;
+            --border-color: #E9ECEF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 40px;
+            color: var(--text-color);
+        }
+        
+        .flow-section {
+            margin-bottom: 60px;
+        }
+
+        .flow-title {
+            font-size: 2rem;
+            color: #333;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .artboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 50px 40px;
+            align-items: flex-start;
+        }
+
+        .artboard {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .artboard-title {
+            font-size: 1.1rem;
+            margin: 0;
+            color: #333;
+            font-weight: 700;
+        }
+        .artboard-annotation {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--subtle-text);
+            min-height: 30px;
+        }
+
+
+        .phone-wrapper {
+            width: 375px;
+            height: 812px;
+            background-color: var(--bg-color);
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+        }
+
+        .app-header {
+            padding: 20px; padding-top: 50px; text-align: center;
+            font-size: 1.2rem; font-weight: 700; background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color); z-index: 10; position: relative;
+        }
+
+        .app-content { flex-grow: 1; overflow-y: auto; padding: 20px; }
+        .page { display: block !important; }
+        
+        .nav-bar {
+            display: flex; justify-content: space-around; align-items: center;
+            height: 80px; background-color: var(--card-bg); border-top: 1px solid var(--border-color);
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 4px; color: var(--subtle-text); font-size: 0.75rem;
+        }
+        
+        .nav-item .icon { font-size: 1.5rem; }
+        .nav-item.active { color: var(--primary-color); }
+        
+        .card {
+            background-color: var(--card-bg); border-radius: 16px; padding: 20px;
+            margin-bottom: 20px; box-shadow: var(--shadow);
+        }
+        
+        .card h3 { margin: 0 0 15px 0; font-size: 1.1rem; color: var(--primary-color); }
+        
+        .home-greeting { text-align: center; margin-bottom: 25px; }
+        .home-greeting h2 { margin: 0; font-size: 1.8rem; font-weight: 700; }
+        .home-greeting p { margin: 5px 0 0; color: var(--subtle-text); }
+        .meal-countdown { text-align: center; }
+        .meal-countdown h1 { font-size: 2.5rem; margin: 0; color: var(--primary-color); }
+        .meal-countdown p { margin: 5px 0 0; color: var(--subtle-text); font-size: 1rem; }
+        
+        .cta-button {
+            display: block; width: 100%; padding: 18px;
+            background: linear-gradient(45deg, var(--primary-color), #66BB6A);
+            color: white; border: none; border-radius: 16px; font-size: 1.2rem;
+            font-weight: 700; text-align: center; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4); margin-top: 25px;
+        }
+
+        .secondary-button {
+            display: block; width: 100%; padding: 15px; background-color: var(--card-bg);
+            color: var(--primary-color); border: 2px solid var(--primary-color);
+            border-radius: 16px; font-size: 1rem; font-weight: 700; text-align: center; margin-top: 15px;
+        }
+        
+        .record-button {
+            display: inline-block; padding: 10px 20px; background-color: var(--secondary-color);
+            color: var(--text-color); border: none; border-radius: 12px;
+            font-size: 0.9rem; font-weight: 700; text-align: center; margin-top: 15px;
+        }
+
+        .seasonal-tip { display: flex; align-items: center; gap: 15px; }
+        .seasonal-tip .icon { font-size: 1.8rem; color: var(--primary-color); }
+        
+        .slot-machine-wrapper {
+            height: 220px; width: 100%; background: var(--bg-color); border-radius: 12px;
+            border: 1px solid var(--border-color); margin-bottom: 30px; overflow: hidden; position: relative;
+        }
+        .slot-machine-wrapper::before, .slot-machine-wrapper::after { content: ''; position: absolute; left: 0; right: 0; height: 60px; z-index: 2; }
+        .slot-machine-wrapper::before { top: 0; background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(248,249,250,0) 100%); }
+        .slot-machine-wrapper::after { bottom: 0; background: linear-gradient(to top, var(--bg-color) 0%, rgba(248,249,250,0) 100%); }
+        .slot-reel { text-align: center; }
+        .slot-item { height: 100px; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: 700; color: var(--text-color); }
+        .slot-pointer { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); height: 100px; border-top: 3px solid var(--primary-color); border-bottom: 3px solid var(--primary-color); z-index: 1; }
+        
+        .result-display { text-align: center; margin-top: 20px; }
+        .result-display p { color: var(--subtle-text); }
+        .result-display h2 { font-size: 2rem; color: var(--primary-color); margin: 0; }
+
+        .seasonal-info { text-align: center; padding: 15px; background-color: var(--primary-color); color: white; border-radius: 12px; margin-bottom: 25px; }
+        .seasonal-info h2 { margin: 0; font-size: 1.5rem; }
+        .seasonal-info p { margin: 5px 0 0; opacity: 0.9; }
+        
+        .food-list-container { margin-top: 20px; }
+        .food-list-container h3 { font-size: 1.3rem; margin-bottom: 15px; border-left: 4px solid; padding-left: 10px; }
+        .food-list-container.recommended h3 { border-color: var(--primary-color); color: var(--primary-color); }
+        .food-list-container.avoid h3 { border-color: #E53935; color: #E53935; }
+        
+        .food-item { display: flex; align-items: center; background-color: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .food-item .icon { font-size: 1.5rem; margin-right: 15px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; }
+        .food-item.recommended .icon { color: var(--primary-color); background-color: #E8F5E9; }
+        .food-item.avoid .icon { color: #E53935; background-color: #FFEBEE; }
+        .food-item .info h4 { margin: 0; font-size: 1rem; }
+        .food-item .info p { margin: 3px 0 0; font-size: 0.85rem; color: var(--subtle-text); }
+
+        .setting-group { margin-bottom: 25px; }
+        .setting-group h3 { font-size: 0.9rem; color: var(--subtle-text); text-transform: uppercase; margin-bottom: 10px; padding-left: 5px; }
+        .setting-item { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 18px 20px; border-radius: 12px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+        .setting-item .label { display: flex; align-items: center; gap: 15px; }
+        .setting-item .label .icon { font-size: 1.2rem; color: var(--primary-color); }
+        .setting-item .control .time { font-weight: 600; color: var(--subtle-text); margin-right: 10px; }
+        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary-color); }
+        input:checked + .slider:before { transform: translateX(22px); }
+        
+        .history-filter { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; padding: 0 0 15px 0; }
+        .history-filter input[type="month"], .history-filter select { flex-grow: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Nunito', sans-serif; background-color: var(--card-bg); min-width: 120px; }
+        .history-filter button { padding: 10px 15px; border: none; border-radius: 8px; background-color: var(--primary-color); color: white; font-weight: 600; flex-shrink: 0; }
+        .history-filter .reset-btn { background-color: var(--subtle-text); }
+        .history-item { display: flex; gap: 15px; padding: 15px; background-color: var(--card-bg); border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .history-item-icon { font-size: 1.8rem; color: var(--primary-color); flex-shrink: 0; }
+        .history-item-details { flex-grow: 1; }
+        .history-item-details h4 { margin: 0 0 5px 0; font-size: 1.1rem; }
+        .history-item-meta { display: flex; justify-content: space-between; align-items: center; color: var(--subtle-text); font-size: 0.85rem; }
+        .history-item-meta .taste-tag { background: var(--bg-color); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem; }
+
+        .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--card-bg); padding: 25px; border-radius: 20px; width: 85%; max-width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .modal-content h3 { margin-top: 0; text-align: center; color: var(--primary-color); }
+
+        #food-options-list { list-style: none; padding: 0; margin: 20px 0; max-height: 200px; overflow-y: auto; }
+        #food-options-list li { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--bg-color); border-radius: 8px; margin-bottom: 8px; }
+        #food-options-list .delete-btn { color: #E53935; font-size: 1.1rem; }
+
+        .add-food-form { display: flex; gap: 10px; margin: 20px 0; }
+        .add-food-form input { flex-grow: 1; border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-family: 'Nunito', sans-serif; }
+        .add-food-form button { border: none; background: var(--primary-color); color: white; font-size: 1.2rem; border-radius: 8px; width: 45px; }
+        
+        .modal-actions { display: flex; gap: 15px; }
+        .modal-actions button { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; }
+        .modal-actions .tertiary-button { background-color: var(--bg-color); color: var(--subtle-text); }
+        .modal-actions .modal-button-confirm { background: linear-gradient(45deg, var(--primary-color), #66BB6A); color: white; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3); }
+
+        .header-action-icon { position: absolute; right: 25px; top: 58px; font-size: 1.4rem; color: var(--subtle-text); }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--subtle-text); font-size: 0.9rem; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Nunito', sans-serif; box-sizing: border-box; }
+    
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <h1 style="text-align: center; margin-bottom: 40px; color: #333;">食饭提醒APP - 视觉设计稿</h1>
+
+    <div class="flow-section">
+        <h2 class="flow-title">流程一：核心页面</h2>
+        <div class="artboard-grid">
+            <div class="artboard">
+                <h3 class="artboard-title">1. 主页</h3>
+                <p class="artboard-annotation">App的默认入口，展示核心功能快捷入口和当日信息。</p>
+                <div class="phone-wrapper">
+                    <header class="app-header"><span>主页</span><i class="fas fa-cog header-action-icon"></i></header>
+                    <main class="app-content">
+                        <div class="home-greeting"><h2>中午好, 仓和</h2><p>是时候考虑午餐吃什么了</p></div>
+                        <div class="card meal-countdown"><p>距离午餐推荐时间还有</p><h1>00:28:15</h1></div>
+                        <button class="cta-button"><i class="fas fa-dice"></i> 天选食神</button>
+                        <button class="secondary-button"><i class="fas fa-edit"></i> 手动记录一餐</button>
+                        <div class="card seasonal-tip" style="margin-top: 20px;"><i class="fas fa-leaf icon"></i><div><h3>今日时令小贴士 (白露)</h3><p>天气转凉，宜食梨、银耳等润肺之物。</p></div></div>
+                    </main>
+                    <nav class="nav-bar"><div class="nav-item active"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav>
+                </div>
+            </div>
+            <div class="artboard">
+                <h3 class="artboard-title">2. 时令食单</h3>
+                <p class="artboard-annotation">根据当前节气，提供饮食建议。</p>
+                <div class="phone-wrapper">
+                    <header class="app-header"><span>时令食单</span><i class="fas fa-cog header-action-icon"></i></header>
+                    <main class="app-content">
+                        <div class="seasonal-info"><h2>当前节气: 白露</h2><p>秋季转凉，燥气当令</p></div>
+                        <div class="food-list-container recommended"><h3><i class="fas fa-check-circle"></i> 推荐食用</h3><div class="food-item recommended"><div class="icon"><i class="fas fa-apple-alt"></i></div><div class="info"><h4>梨</h4><p>润肺清燥，生津止咳</p></div></div><div class="food-item recommended"><div class="icon"><i class="fa-solid fa-seedling"></i></div><div class="info"><h4>银耳</h4><p>滋阴润肺，益气和血</p></div></div></div>
+                        <div class="food-list-container avoid" style="margin-top: 30px;"><h3><i class="fas fa-times-circle"></i> 避免食用</h3><div class="food-item avoid"><div class="icon"><i class="fas fa-shrimp"></i></div><div class="info"><h4>生冷海鲜</h4><p>性寒，易伤脾胃阳气</p></div></div><div class="food-item avoid"><div class="icon"><i class="fa-solid fa-pepper-hot"></i></div><div class="info"><h4>过食辛辣</h4><p>易助燥伤阴，加重秋燥</p></div></div></div>
+                    </main>
+                    <nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item active"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-section">
+        <h2 class="flow-title">流程二：选择并记录一餐</h2>
+        <div class="artboard-grid">
+            <div class="artboard"><h3 class="artboard-title">3. 天选食神 - 默认状态</h3><p class="artboard-annotation">用户进入“吃什么”页面的初始状态。</p>
+                <div class="phone-wrapper"><header class="app-header"><span>天选食神</span><i class="fas fa-cog header-action-icon"></i></header><main class="app-content"><div class="card"><div class="slot-machine-wrapper"><div class="slot-pointer"></div><div class="slot-reel" style="transform: translateY(-60px);"><div class="slot-item">沙县小吃</div><div class="slot-item">兰州拉面</div><div class="slot-item">隆江猪脚饭</div><div class="slot-item">潮汕炒粿</div><div class="slot-item">麦当劳</div></div></div></div><button class="cta-button">开始选择</button><button class="secondary-button">管理我的菜单</button></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item active"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav></div>
+            </div>
+            <div class="artboard"><h3 class="artboard-title">4. 天选食神 - 结果状态</h3><p class="artboard-annotation">点击“开始选择”后，滚动停止并显示随机结果。</p>
+                <div class="phone-wrapper"><header class="app-header"><span>天选食神</span><i class="fas fa-cog header-action-icon"></i></header><main class="app-content"><div class="card"><div class="slot-machine-wrapper"><div class="slot-pointer"></div><div class="slot-reel" style="transform: translateY(-260px);"><div class="slot-item">兰州拉面</div><div class="slot-item">隆江猪脚饭</div><div class="slot-item">潮汕炒粿</div><div class="slot-item">麦当劳</div><div class="slot-item">螺蛳粉</div></div></div><div class="result-display" style="display: block;"><p>今天就吃这个吧！</p><h2>潮汕炒粿</h2><button class="record-button"><i class="fas fa-pencil-alt"></i> 就吃它了！记录一下</button></div></div><button class="cta-button">再选一次</button><button class="secondary-button">管理我的菜单</button></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item active"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav></div>
+            </div>
+            <div class="artboard"><h3 class="artboard-title">5. 弹窗 - 从结果记录</h3><p class="artboard-annotation">在结果页点击“记录一下”按钮，弹出记录窗口，菜名自动填充。</p>
+                <div class="phone-wrapper" style="position: relative;"><div class="phone-wrapper" style="position: absolute; filter: blur(2px);"><header class="app-header"><span>天选食神</span><i class="fas fa-cog header-action-icon"></i></header><main class="app-content"><div class="card"><div class="slot-machine-wrapper"><div class="slot-pointer"></div><div class="slot-reel" style="transform: translateY(-260px);"><div class="slot-item"></div></div></div><div class="result-display" style="display: block;"><p>今天就吃这个吧！</p><h2>潮汕炒粿</h2></div></div></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item active"><i class="fas fa-dice icon"></i><span>吃什么</span></div></nav></div><div class="modal-overlay"><div class="modal-content"><h3>记录一餐</h3><div class="form-group"><label>吃了什么</label><input type="text" value="潮汕炒粿"></div><div class="form-group"><label>花费多少 (元)</label><input type="number" placeholder="例如: 25"></div><div class="form-group"><label>口味如何</label><select><option>清淡</option><option selected>适中</option></select></div><div class="modal-actions"><button class="tertiary-button">取消</button><button class="modal-button-confirm">确认记录</button></div></div></div></div>
+            </div>
+             <div class="artboard"><h3 class="artboard-title">6. 弹窗 - 手动记录</h3><p class="artboard-annotation">在主页点击“手动记录一餐”，弹出记录窗口，菜名为空。</p>
+                <div class="phone-wrapper" style="position: relative;"><div class="phone-wrapper" style="position: absolute; filter: blur(2px);"><header class="app-header"><span>主页</span><i class="fas fa-cog header-action-icon"></i></header><main class="app-content"><div class="home-greeting"><h2>中午好, 仓和</h2></div><div class="card meal-countdown"><p>距离午餐推荐时间还有</p><h1>00:28:15</h1></div></main><nav class="nav-bar"><div class="nav-item active"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item"><i class="fas fa-dice icon"></i><span>吃什么</span></div></nav></div><div class="modal-overlay"><div class="modal-content"><h3>记录一餐</h3><div class="form-group"><label>吃了什么</label><input type="text" placeholder="例如: 隆江猪脚饭"></div><div class="form-group"><label>花费多少 (元)</label><input type="number" placeholder="例如: 25"></div><div class="form-group"><label>口味如何</label><select><option>清淡</option><option selected>适中</option></select></div><div class="modal-actions"><button class="tertiary-button">取消</button><button class="modal-button-confirm">确认记录</button></div></div></div></div>
+            </div>
+        </div>
+    </div>
+
+     <div class="flow-section">
+        <h2 class="flow-title">流程三：查阅与筛选记录</h2>
+        <div class="artboard-grid">
+            <div class="artboard"><h3 class="artboard-title">7. 饮食记录 - 默认状态</h3><p class="artboard-annotation">展示所有历史记录，按时间倒序排列。</p>
+                <div class="phone-wrapper"><header class="app-header"><span>饮食记录</span><i class="fas fa-cog header-action-icon"></i></header><main class="app-content"><div class="history-filter"><input type="month"><select><option value="all">所有口味</option><option>清淡</option></select><button>查询</button><button class="reset-btn">重置</button></div><div id="history-list"><div class="history-item"><div class="history-item-icon"><i class="fas fa-utensils"></i></div><div class="history-item-details"><h4>黄焖鸡米饭</h4><div class="history-item-meta"><span><i class="far fa-clock"></i> 昨天 12:35</span><span><i class="fas fa-money-bill-wave"></i> ¥22</span><span class="taste-tag">适中</span></div></div></div><div class="history-item"><div class="history-item-icon"><i class="fas fa-utensils"></i></div><div class="history-item-details"><h4>兰州拉面</h4><div class="history-item-meta"><span><i class="far fa-clock"></i> 9月20日 12:10</span><span><i class="fas fa-money-bill-wave"></i> ¥18</span><span class="taste-tag">清淡</span></div></div></div></div></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item active"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav></div>
+            </div>
+            <div class="artboard"><h3 class="artboard-title">8. 饮食记录 - 筛选状态</h3><p class="artboard-annotation">用户选择了月份和口味后，列表只展示符合条件的记录。</p>
+                 <div class="phone-wrapper"><header class="app-header"><span>饮食记录</span><i class="fas fa-cog header-action-icon"></i></header><main class="app-content"><div class="history-filter"><input type="month" value="2023-10"><select><option>所有口味</option><option selected>适中</option></select><button>查询</button><button class="reset-btn">重置</button></div><div id="history-list"><div class="history-item"><div class="history-item-icon"><i class="fas fa-utensils"></i></div><div class="history-item-details"><h4>黄焖鸡米饭</h4><div class="history-item-meta"><span><i class="far fa-clock"></i> 昨天 12:35</span><span><i class="fas fa-money-bill-wave"></i> ¥22</span><span class="taste-tag">适中</span></div></div></div></div></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item active"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav></div>
+            </div>
+            <div class="artboard"><h3 class="artboard-title">9. 饮食记录 - 空状态</h3><p class="artboard-annotation">没有任何记录，或筛选结果为空时展示。</p>
+                <div class="phone-wrapper"><header class="app-header"><span>饮食记录</span><i class="fas fa-cog header-action-icon"></i></header><main class="app-content"><div class="history-filter"><input type="month" value="2023-09"><select><option value="all">所有口味</option></select><button>查询</button><button class="reset-btn">重置</button></div><div id="history-list" style="display: none;"></div><div style="text-align: center; margin-top: 50px; color: var(--subtle-text);"><i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 15px;"></i><p>没有任何饮食记录哦</p></div></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item active"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flow-section">
+        <h2 class="flow-title">流程四：管理与设置</h2>
+        <div class="artboard-grid">
+            <div class="artboard"><h3 class="artboard-title">10. 设置</h3><p class="artboard-annotation">提供用餐提醒和关于信息的入口。</p>
+                <div class="phone-wrapper"><header class="app-header"><span>设置</span></header><main class="app-content"><div class="setting-group"><h3>用餐提醒</h3><div class="setting-item"><div class="label"><i class="fas fa-sun icon"></i> <span>早餐</span></div><div class="control"><span class="time">08:00</span><label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label></div></div><div class="setting-item"><div class="label"><i class="fas fa-cloud-sun icon"></i> <span>午餐</span></div><div class="control"><span class="time">12:30</span><label class="toggle-switch"><input type="checkbox" checked=""><span class="slider"></span></label></div></div><div class="setting-item"><div class="label"><i class="fas fa-moon icon"></i> <span>晚餐</span></div><div class="control"><span class="time">19:00</span><label class="toggle-switch"><input type="checkbox"><span class="slider"></span></label></div></div></div><div class="setting-group"><h3>关于</h3><div class="setting-item"><div class="label"><i class="fas fa-info-circle icon"></i> <span>关于我们</span></div></div><div class="setting-item"><div class="label"><i class="fas fa-star icon"></i> <span>给个好评</span></div></div></div></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-home icon"></i><span>主页</span></div><div class="nav-item"><i class="fas fa-dice icon"></i><span>吃什么</span></div><div class="nav-item"><i class="fas fa-history icon"></i><span>记录</span></div><div class="nav-item"><i class="fas fa-leaf icon"></i><span>时令</span></div><div class="nav-item active"><i class="fas fa-cog icon"></i><span>设置</span></div></nav></div>
+            </div>
+            <div class="artboard"><h3 class="artboard-title">11. 弹窗 - 设置提醒</h3><p class="artboard-annotation">点击任一餐的设置项后，弹出配置窗口。</p>
+                <div class="phone-wrapper" style="position: relative;"><div class="phone-wrapper" style="position: absolute; filter: blur(2px);"><header class="app-header"><span>设置</span></header><main class="app-content"><div class="setting-group"><h3>用餐提醒</h3><div class="setting-item"><div class="label"><i class="fas fa-sun icon"></i> <span>早餐</span></div></div><div class="setting-item"><div class="label"><i class="fas fa-cloud-sun icon"></i> <span>午餐</span></div></div></div></main><nav class="nav-bar"><div class="nav-item"><i class="fas fa-cog icon"></i><span>设置</span></div></nav></div><div class="modal-overlay"><div class="modal-content"><h3>设置午餐提醒</h3><div class="form-group"><label>用餐时间</label><input type="time" value="12:30"></div><div class="form-group"><label>提前多久提醒</label><select><option value="0">准时提醒</option><option value="15" selected>提前15分钟</option></select></div><div class="modal-actions"><button class="tertiary-button">取消</button><button class="modal-button-confirm">保存</button></div></div></div></div>
+            </div>
+            <div class="artboard"><h3 class="artboard-title">12. 弹窗 - 自定义菜单</h3><p class="artboard-annotation">在“天选食神”页点击“管理我的菜单”后弹出。</p>
+                <div class="phone-wrapper" style="position: relative;"><div class="phone-wrapper" style="position: absolute; filter: blur(2px);"><header class="app-header"><span>天选食神</span></header><main class="app-content"><div class="card"><div class="slot-machine-wrapper"></div></div></main><nav class="nav-bar"><div class="nav-item active"><i class="fas fa-dice icon"></i><span>吃什么</span></div></nav></div><div class="modal-overlay"><div class="modal-content"><h3>自定义菜单</h3><ul id="food-options-list"><li><span>隆江猪脚饭</span><i class="fas fa-trash-alt delete-btn"></i></li><li><span>潮汕炒粿</span><i class="fas fa-trash-alt delete-btn"></i></li><li><span>麦当劳</span><i class="fas fa-trash-alt delete-btn"></i></li></ul><div class="add-food-form"><input type="text" placeholder="添加新选项..."><button><i class="fas fa-plus"></i></button></div><div class="modal-actions"><button class="tertiary-button">取消</button><button class="modal-button-confirm">保存</button></div></div></div></div>
+            </div>
+             <div class="artboard"><h3 class="artboard-title">13. 弹窗 - 菜单空状态</h3><p class="artboard-annotation">当用户清空了所有自定义菜单项时的状态。</p>
+                <div class="phone-wrapper" style="position: relative;"><div class="phone-wrapper" style="position: absolute; filter: blur(2px);"><header class="app-header"><span>天选食神</span></header><main class="app-content"><div class="card"><div class="slot-machine-wrapper"></div></div></main><nav class="nav-bar"><div class="nav-item active"><i class="fas fa-dice icon"></i><span>吃什么</span></div></nav></div><div class="modal-overlay"><div class="modal-content"><h3>自定义菜单</h3><ul id="food-options-list" style="text-align: center; color: var(--subtle-text);"><p>还没有任何选项</p></ul><div class="add-food-form"><input type="text" placeholder="添加新选项..."><button><i class="fas fa-plus"></i></button></div><div class="modal-actions"><button class="tertiary-button">取消</button><button class="modal-button-confirm">保存</button></div></div></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

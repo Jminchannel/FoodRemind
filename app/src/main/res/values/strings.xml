@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Language</string>
+    <string name="app_name">FoodReminder</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_food_picker">Food Picker</string>
+    <string name="nav_history">History</string>
+    <string name="nav_seasonal">Seasonal</string>
+    <string name="nav_settings">Settings</string>
+    
+    <!-- Home Screen -->
+    <string name="greeting_morning">Good Morning, %1$s</string>
+    <string name="greeting_noon">Good Afternoon, %1$s</string>
+    <string name="greeting_afternoon">Good Afternoon, %1$s</string>
+    <string name="greeting_evening">Good Evening, %1$s</string>
+    <string name="greeting_night">Good Night, %1$s</string>
+    <string name="greeting_message">Time to think about what to eat for %1$s</string>
+    <string name="meal_countdown">Time until %1$s</string>
+    <string name="btn_food_picker">Food Picker</string>
+    <string name="btn_manual_record">Record a Meal</string>
+    <string name="seasonal_tip_title">Today\'s Seasonal Tip (%1$s)</string>
+    
+    <!-- Food Picker -->
+    <string name="food_picker_title">Food Picker</string>
+    <string name="btn_start_pick">Start Picking</string>
+    <string name="btn_pick_again">Pick Again</string>
+    <string name="btn_manage_menu">Manage Menu</string>
+    <string name="pick_result_hint">Let\'s eat this today!</string>
+    <string name="btn_record_meal">I\'ll eat this! Record it</string>
+    
+    <!-- Meal History -->
+    <string name="history_title">Meal History</string>
+    <string name="filter_all_tastes">All Tastes</string>
+    <string name="btn_filter">Filter</string>
+    <string name="btn_reset">Reset</string>
+    <string name="history_empty">No meal records yet</string>
+    <string name="today">Today %1$s</string>
+    <string name="yesterday">Yesterday %1$s</string>
+    <string name="date_format">%1$d/%2$d</string>
+    
+    <!-- Seasonal Foods -->
+    <string name="seasonal_title">Seasonal Foods</string>
+    <string name="current_solar_term">Current Solar Term: %1$s</string>
+    <string name="seasonal_description">%1$s</string>
+    <string name="recommended_foods">Recommended Foods</string>
+    <string name="avoid_foods">Foods to Avoid</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="meal_reminders">Meal Reminders</string>
+    <string name="about">About</string>
+    <string name="about_us">About Us</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="about_us_content">This is a food reminder app that helps you never miss a meal.</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="account_settings">Account</string>
+    <string name="edit_nickname">Edit Nickname</string>
+
+    <!-- Dialogs -->
+    <string name="customize_menu_title">Customize Menu</string>
+    <string name="add_new_option_hint">Add new option…</string>
+    <string name="menu_empty">No options yet</string>
+    <string name="record_meal_title">Record a Meal</string>
+    <string name="meal_name_label">What did you eat</string>
+    <string name="meal_name_hint">E.g.: Burger</string>
+    <string name="meal_cost_label">How much did it cost</string>
+    <string name="meal_cost_hint">E.g.: 10</string>
+    <string name="meal_taste_label">How was the taste</string>
+    <string name="set_reminder_title">Set %1$s Reminder</string>
+    <string name="nickname_dialog_title">Welcome!</string>
+    <string name="nickname_dialog_prompt">Please enter your nickname.</string>
+    <string name="nickname_label">Nickname</string>
+    <string name="meal_time_label">Meal Time</string>
+    <string name="lead_time_label">Reminder Lead Time</string>
+    <string name="on_time">On time</string>
+    <string name="lead_time_5">5 minutes before</string>
+    <string name="lead_time_15">15 minutes before</string>
+    <string name="lead_time_30">30 minutes before</string>
+    <string name="lead_time_60">1 hour before</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_confirm">Confirm</string>
+    
+    <!-- Taste Options -->
+    <string name="taste_light">Light</string>
+    <string name="taste_medium">Medium</string>
+    <string name="taste_spicy">Spicy</string>
+    <string name="taste_greasy">Greasy</string>
+    <string name="taste_sweet">Sweet</string>
+    <string name="taste_salty">Salty</string>
+    
+    <!-- Error Messages -->
+    <string name="error_empty_fields">Please enter dish name and cost</string>
+    <string name="error_min_options">Please keep at least 2 options</string>
+    <string name="nickname_saved_success">Nickname saved successfully!</string>
+    <string name="top_bar_back_button">Back</string>
+    <string name="food_picker_btn">Food Picker</string>
+    <string name="manual_record_btn">Record a Meal</string>
+    <string name="seasonal_tips_title">Seasonal Tips: %1$s</string>
+    <string name="notification_text">It\'s time for %1$s!</string>
+    
+    <!-- Dialog strings -->
+    <string name="select_month">Select Month</string>
+    <string name="add_new_option">Add new option…</string>
+    <string name="no_options">No options yet</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="min_options_warning">At least two options are required to use the food picker.</string>
+    <string name="stop_picking_message">Stop spinning and just eat this!</string>
+    <string name="notification_fallback_title">Meal Reminder</string>
+    <string name="notification_fallback_content">It\'s time to eat!</string>
+    <string name="reminder_dialog_title">Time to Eat!</string>
+    <string name="reminder_dialog_message">It\'s time to prepare for your meal. Remember to eat on time.</string>
+    <string name="fullscreen_permission_title">Enable Full-Screen Reminders</string>
+    <string name="fullscreen_permission_message">To ensure reminders pop up on your screen immediately, please grant the \'Display over other apps\' or \'Full-screen notifications\' permission for this app in the settings.</string>
+
+    <!-- Solar Terms -->
+    <string name="solarterm_autumnbegins_name">Beginning of Autumn</string>
+    <string name="solarterm_autumnbegins_desc">After the beginning of autumn, the weather gradually turns cooler, and it is advisable to eat more moisturizing food.</string>
+    <string name="solarterm_limpidness_name">Clear and Bright</string>
+    <string name="solarterm_limpidness_desc">The weather is clear and bright, and everything is growing. It is suitable for outdoor activities and eating fresh vegetables.</string>
+    <string name="solarterm_whitedew_name">White Dew</string>
+    <string name="solarterm_whitedew_desc">The weather is getting cooler, and the dew is getting heavier. It is advisable to eat more food that nourishes the lungs.</string>
+
+    <!-- Foods -->
+    <string name="food_pear_name">Pear</string>
+    <string name="food_pear_desc">Moistens the lungs and relieves cough</string>
+    <string name="food_whitefungus_name">White Fungus</string>
+    <string name="food_whitefungus_desc">Nourishes yin and moistens the lungs</string>
+    <string name="food_glutinousrice_name">Glutinous Rice</string>
+    <string name="food_glutinousrice_desc">Invigorates the spleen and stomach</string>
+    <string name="food_coldseafood_name">Cold Seafood</string>
+    <string name="food_coldseafood_desc">Easy to damage yang qi</string>
+    <string name="food_spicy_name">Excessive Spicy Food</string>
+    <string name="food_spicy_desc">Can increase dryness and damage yin</string>
+</resources>

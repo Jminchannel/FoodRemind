@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 应用主题颜色 -->
+    <color name="primary_color">#4CAF50</color>
+    <color name="secondary_color">#FFC107</color>
+    <color name="bg_color">#F8F9FA</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="text_color">#212529</color>
+    <color name="subtle_text">#6C757D</color>
+    <color name="border_color">#E9ECEF</color>
+    
+    <!-- 其他颜色 -->
+    <color name="error_red">#E53935</color>
+    <color name="success_green">#66BB6A</color>
+    <color name="light_green">#E8F5E9</color>
+    <color name="light_red">#FFEBEE</color>
+    
+    <!-- 系统颜色 -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
